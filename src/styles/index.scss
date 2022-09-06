@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap");
+@import "./variables.scss";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Signika Negative", sans-serif;
+  color: #f3f6f8;
+  background-color: $secondary-color-dark;
+}
+
+// NAVBAR
+
+.navbar {
+  height: 8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10rem;
+  background-color: $primary-color-dark;
+
+  &__title {
+    font-size: 4rem;
+  }
+
+  &__button {
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      scale: 1.1;
+    }
+
+    &:active {
+      scale: 1.05;
+    }
+  }
+}
+
+// COUNTRY CONTAINER
+.country-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5rem auto;
+  max-width: 140rem;
+  gap: 6rem;
+  flex-wrap: wrap;
+}
+
+// COUNTRY
+.country {
+  width: 30.5rem;
+  height: 37rem;
+  box-shadow: 0 0 2rem rgba($color: #000000, $alpha: 0.2);
+  background-color: $primary-color-dark;
+
+  &__name {
+    font-size: 3.5rem;
+  }
+
+  &__img {
+    width: 100%;
+    height: 170px;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 2rem;
+    height: 20rem;
+
+    p {
+      font-size: 2rem;
+    }
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.loading {
+  font-size: 6rem;
+}
