@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import { Link } from "react-router-dom";
 import {
   ACTION_TYPES,
   CountryReducer,
@@ -23,7 +24,9 @@ const CountryList = () => {
   }, []);
 
   const content = state.countries.map((country) => (
-    <CountryItem key={country.name.common} country={country} />
+    <Link to={country.cca3} key={country.name.common}>
+      <CountryItem country={country} />
+    </Link>
   ));
 
   // !state.loading && console.log(state);
