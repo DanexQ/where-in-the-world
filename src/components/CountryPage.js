@@ -1,87 +1,58 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import {
-  ACTION_TYPES,
-  CountryReducer,
-  initialState,
-} from "../reducers/CountryReducer";
-import { useReducer } from "react";
+import React, { useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import { CountryContext } from "../context/CountryContext";
 
 const CountryPage = () => {
+  const { countries, loading } = useContext(CountryContext);
   const { countryCode } = useParams();
-  const [state, dispatch] = useReducer(CountryReducer, initialState);
-  console.log(useParams());
-
-  // fetch data
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    fetch(`https://restcountries.com/v3.1/alpha/${countryCode}`, { signal })
-      .then((res) => {
-        dispatch({ type: ACTION_TYPES.FETCH_START });
-        return res.json();
-      })
-      .then((data) => {
-        const [country] = data;
-        dispatch({ type: ACTION_TYPES.FETCH_SUCCESSFUL, payload: country });
-      })
-      .catch((err) => {
-        dispatch({ type: ACTION_TYPES.FETCH_ERROR });
-      });
-
-    return () => {
-      controller.abort();
-    };
-  }, [countryCode]);
-
-  console.log(state.countries);
+  const [country] = countries.filter((country) => country.cca3 === countryCode);
+  console.log(country);
 
   return (
     <div className="single">
-      <button className="single__btn">&larr; Back</button>
+      <button className="single__btn">
+        <Link to="/">&larr; Back</Link>
+      </button>
       <div className="single__container">
-        {state.loading ? (
-          <h2>Loading...</h2>
+        {loading ? (
+          <div className="loading">Loading...</div>
         ) : (
           <>
             <figure className="single__img-container">
               <img
-                src={state.countries.flags.svg}
-                alt={state.countries.cca3}
+                src={country.flags.svg}
+                alt={country.cca3}
                 className="single__img"
               />
             </figure>
             <div className="single__description">
-              <h2 className="single__name">{state.countries.name.common}</h2>
+              <h2 className="single__name">{country.name.common}</h2>
               <ul className="single__list">
                 <li className="single__list-item">
                   Native name:{" "}
                   <span>
-                    {
-                      Object.entries(state.countries.name.nativeName)[0][1]
-                        .official
-                    }
+                    {Object.entries(country.name.nativeName)[0][1].official}
                   </span>
                 </li>
                 <li className="single__list-item">
-                  Population: <span>{state.countries.population}</span>
+                  Population: <span>{country.population}</span>
                 </li>
                 <li className="single__list-item">
-                  Region: <span>{state.countries.region}</span>
+                  Region: <span>{country.region}</span>
                 </li>
                 <li className="single__list-item">
-                  Sub region: <span>{state.countries.subregion}</span>
+                  Sub region: <span>{country.subregion}</span>
                 </li>
                 <li className="single__list-item">
-                  Capital: <span>{state.countries.capital[0]}</span>
+                  Capital: <span>{country.capital[0]}</span>
                 </li>
                 <li className="single__list-item">
-                  Top level domain: <span>{state.countries.tld}</span>
+                  Top level domain: <span>{country.tld}</span>
                 </li>
                 <li className="single__list-item">
                   Currencies:{" "}
                   <span>
-                    {Object.entries(state.countries.currencies)
+                    {Object.entries(country.currencies)
                       .map((currency) => currency[0])
                       .join(", ")}
                   </span>
@@ -89,7 +60,7 @@ const CountryPage = () => {
                 <li className="single__list-item">
                   Languages:{" "}
                   <span>
-                    {Object.entries(state.countries.languages)
+                    {Object.entries(country.languages)
                       .map((entry) => entry[1])
                       .join(", ")}
                   </span>
@@ -97,9 +68,9 @@ const CountryPage = () => {
               </ul>
               <div className="single__border">
                 <p>Border Countries:</p>
-                {state.countries.borders.map((country) => (
-                  <button key={country} className="single__btn">
-                    {country}
+                {country.borders.map((code) => (
+                  <button key={code} className="single__btn">
+                    <Link to={`/${code}`}>{code}</Link>
                   </button>
                 ))}
               </div>

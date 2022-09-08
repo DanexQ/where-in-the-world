@@ -65,12 +65,14 @@ a {
 }
 
 // COUNTRY CONTAINER
+.country-list {
+  max-width: 140rem;
+  margin: 5rem auto;
+}
 .country-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5rem auto;
-  max-width: 140rem;
   gap: 6rem;
   flex-wrap: wrap;
 }
@@ -83,7 +85,7 @@ a {
   background-color: $primary-color-dark;
 
   &__name {
-    font-size: 3.5rem;
+    font-size: 2.4rem;
   }
 
   &__img {
@@ -99,7 +101,7 @@ a {
     height: 20rem;
 
     p {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 
@@ -200,5 +202,40 @@ a {
 
   &__img {
     width: 100%;
+  }
+}
+
+// INPUTS
+.form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5rem;
+
+  &__input {
+    padding: 1rem 2rem;
+    border: none;
+    background-color: $primary-color-dark;
+    color: inherit;
+    font-family: inherit;
+    font-size: 2rem;
+    box-shadow: 0 0 2rem rgba($color: #000000, $alpha: 0.2);
+    &--search {
+      width: 20%;
+      transition: width 0.3s;
+
+      &:focus {
+        width: 25%;
+        border: none;
+        outline: none;
+      }
+    }
+    &--select {
+      appearance: none;
+      cursor: pointer;
+      &:active {
+        outline: none;
+      }
+    }
   }
 }

@@ -9,7 +9,14 @@ export const CountryReducer = (state, action) => {
     case "FETCH_START":
       return { error: false, loading: true, countries: [] };
     case "FETCH_SUCCESSFUL":
-      return { ...state, loading: false, countries: action.payload };
+      return {
+        ...state,
+        loading: false,
+        countries: action.payload.map((country) => ({
+          ...country,
+          searchWord: country.name.common.toLowerCase(),
+        })),
+      };
     case "FETCH_ERROR":
       return { ...state, error: true };
     default:
