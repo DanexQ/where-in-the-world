@@ -2,6 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
 @import "./variables.scss";
 
+@mixin redBorder {
+  border: 1px solid red;
+}
+
+// DARK MODE | LIGHT MODE
+
 *,
 *::before,
 *::after {
@@ -16,15 +22,73 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-  color: #f3f6f8;
-  background-color: $secondary-color-dark;
 }
 
 a {
   text-decoration: none;
-  color: $font-color-dark;
 }
 
+.app {
+  width: 100%;
+  min-height: 100vh;
+
+  &.dark {
+    background-color: $secondary-color-dark;
+    color: $font-color-dark;
+
+    > .country {
+      background-color: $primary-color-dark;
+    }
+
+    > .navbar {
+      background-color: $primary-color-dark;
+    }
+
+    a {
+      color: $font-color-dark;
+    }
+
+    button {
+      background-color: $primary-color-dark;
+    }
+
+    .form__input {
+      background-color: $primary-color-dark;
+    }
+  }
+
+  &.light {
+    background-color: $secondary-color-light;
+
+    > .country {
+      background-color: $primary-color-light;
+    }
+
+    > .navbar {
+      background: $primary-color-light;
+    }
+
+    a {
+      color: $font-color-light;
+    }
+
+    button {
+      background-color: $primary-color-light;
+    }
+
+    .form__input {
+      background-color: $primary-color-light;
+    }
+  }
+}
+
+.dark {
+  background-color: $primary-color-dark;
+}
+
+.light {
+  background-color: $primary-color-light;
+}
 // NAVBAR
 
 .navbar {
@@ -52,7 +116,7 @@ a {
     font-family: inherit;
     font-size: 2rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: scale 0.2s;
 
     &:hover {
       scale: 1.1;
@@ -82,7 +146,6 @@ a {
   width: 30.5rem;
   height: 37rem;
   box-shadow: 0 0 2rem rgba($color: #000000, $alpha: 0.2);
-  background-color: $primary-color-dark;
 
   &__name {
     font-size: 2.4rem;
@@ -119,6 +182,9 @@ a {
 // COUNTRY PAGE
 
 .single {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   max-width: 140rem;
   margin: 5rem auto;
   font-size: 1.7rem;
@@ -163,19 +229,23 @@ a {
   &__item {
     flex: 0 0 50%;
   }
+
   &__btn {
-    align-self: flex-start;
     font-family: inherit;
     color: inherit;
-    background-color: $primary-color-dark;
-    padding: 0.5rem 2rem;
+    padding: 1rem 2rem;
     letter-spacing: 1px;
     border: none;
     border-radius: 3px;
-    box-shadow: 0 0 1rem rgba(#19252c, 1);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: all 0.1s;
     backface-visibility: hidden;
+
+    &--back {
+      align-self: flex-start;
+      font-size: 2rem;
+    }
 
     &:hover {
       scale: 1.01;
@@ -190,6 +260,7 @@ a {
   &__border {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 2rem;
   }
 
@@ -198,6 +269,7 @@ a {
     justify-content: center;
     align-items: center;
     width: 300px;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   }
 
   &__img {
@@ -207,33 +279,39 @@ a {
 
 // INPUTS
 .form {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(15rem, 30.5rem));
+  justify-content: center;
   align-items: center;
+  gap: 6rem;
   margin-bottom: 5rem;
 
   &__input {
     padding: 1rem 2rem;
     border: none;
-    background-color: $primary-color-dark;
     color: inherit;
     font-family: inherit;
     font-size: 2rem;
     box-shadow: 0 0 2rem rgba($color: #000000, $alpha: 0.2);
+
     &--search {
-      width: 20%;
       transition: width 0.3s;
 
       &:focus {
-        width: 25%;
         border: none;
         outline: none;
       }
     }
     &--select {
+      grid-column: 2;
       appearance: none;
       cursor: pointer;
+
       &:active {
+        outline: none;
+      }
+
+      &:focus {
         outline: none;
       }
     }

@@ -7,7 +7,7 @@ export const initialState = {
 export const CountryReducer = (state, action) => {
   switch (action.type) {
     case "FETCH_START":
-      return { error: false, loading: true, countries: [] };
+      return { ...state, loading: true, countries: [] };
     case "FETCH_SUCCESSFUL":
       return {
         ...state,
@@ -19,6 +19,11 @@ export const CountryReducer = (state, action) => {
       };
     case "FETCH_ERROR":
       return { ...state, error: true };
+    case "CHANGE_MODE":
+      return () => {
+        console.log("siema");
+        return { ...state, darkMode: action.payload };
+      };
     default:
       throw new Error("Coś poszło nie tak");
   }
@@ -28,4 +33,5 @@ export const ACTION_TYPES = {
   FETCH_START: "FETCH_START",
   FETCH_SUCCESSFUL: "FETCH_SUCCESSFUL",
   FETCH_ERROR: "FETCH_ERROR",
+  CHANGE_MODE: "CHANGE_MODE",
 };

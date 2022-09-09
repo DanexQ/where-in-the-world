@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import {
   ACTION_TYPES,
   CountryReducer,
@@ -9,6 +9,7 @@ export const CountryContext = createContext();
 
 export const CountryProvider = ({ children }) => {
   const [state, dispatch] = useReducer(CountryReducer, initialState);
+  const [colorMode, setColorMode] = useState("dark");
 
   useEffect(() => {
     console.log("START FETCHING");
@@ -23,12 +24,19 @@ export const CountryProvider = ({ children }) => {
       });
   }, []);
 
+  const handleChange = () => {
+    console.log(colorMode);
+    setColorMode((prevMode) => (prevMode === "dark" ? "light" : "dark"));
+  };
+
   return (
     <CountryContext.Provider
       value={{
         countries: state.countries,
         loading: state.loading,
         error: state.error,
+        changeMode: handleChange,
+        colorMode: colorMode,
       }}
     >
       {children}

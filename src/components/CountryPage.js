@@ -10,7 +10,7 @@ const CountryPage = () => {
 
   return (
     <div className="single">
-      <button className="single__btn">
+      <button className="single__btn single__btn--back">
         <Link to="/">&larr; Back</Link>
       </button>
       <div className="single__container">
@@ -68,11 +68,11 @@ const CountryPage = () => {
               </ul>
               <div className="single__border">
                 <p>Border Countries:</p>
-                {country.borders.map((code) => (
+                {country.borders?.map((code) => (
                   <button key={code} className="single__btn">
                     <Link to={`/${code}`}>{code}</Link>
                   </button>
-                ))}
+                )) || "No border countries"}
               </div>
             </div>
           </>
