@@ -13,7 +13,7 @@ const Navbar = () => {
         </h1>
 
         <button className="navbar__button" onClick={changeMode}>
-          &#9789; Dark mode
+          {colorMode[0].toUpperCase() + colorMode.slice(1)} mode
         </button>
       </div>
     </nav>

@@ -10,9 +10,9 @@ const CountryPage = () => {
 
   return (
     <div className="single">
-      <button className="single__btn single__btn--back">
-        <Link to="/">&larr; Back</Link>
-      </button>
+      <Link to="/" className="single__btn single__btn--back">
+        &larr; Back
+      </Link>
       <div className="single__container">
         {loading ? (
           <div className="loading">Loading...</div>
@@ -47,7 +47,7 @@ const CountryPage = () => {
                   Capital: <span>{country.capital[0]}</span>
                 </li>
                 <li className="single__list-item">
-                  Top level domain: <span>{country.tld}</span>
+                  Top level domain: <span>{country.tld.join(" ")}</span>
                 </li>
                 <li className="single__list-item">
                   Currencies:{" "}
@@ -68,11 +68,13 @@ const CountryPage = () => {
               </ul>
               <div className="single__border">
                 <p>Border Countries:</p>
-                {country.borders?.map((code) => (
-                  <button key={code} className="single__btn">
-                    <Link to={`/${code}`}>{code}</Link>
-                  </button>
-                )) || "No border countries"}
+                <div className="single__border--countries">
+                  {country.borders?.map((code) => (
+                    <Link to={`/${code}`} className="single__btn" key={code}>
+                      {code}
+                    </Link>
+                  )) || "No border countries"}
+                </div>
               </div>
             </div>
           </>

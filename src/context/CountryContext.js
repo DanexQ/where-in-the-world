@@ -9,7 +9,14 @@ export const CountryContext = createContext();
 
 export const CountryProvider = ({ children }) => {
   const [state, dispatch] = useReducer(CountryReducer, initialState);
-  const [colorMode, setColorMode] = useState("dark");
+  const [colorMode, setColorMode] = useState(
+    JSON.parse(localStorage.getItem("colorMode")) || "dark"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("colorMode", JSON.stringify(colorMode));
+    console.log("context");
+  }, [colorMode]);
 
   useEffect(() => {
     console.log("START FETCHING");
